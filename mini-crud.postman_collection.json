@@ -1,0 +1,368 @@
+{
+	"info": {
+		"name": "Mini CRUD de usuarios",
+		"description": "Colección para demostrar los 6 endpoints del mini CRUD (FastAPI + MySQL).\n\nAntes de usarla:\n1. Encender MySQL.\n2. Encender el servidor: .\\.venv\\Scripts\\python.exe -m uvicorn main:app --reload --port 8000\n\nLas peticiones van en orden (1 a 9). La 3 crea un usuario y guarda su id en la variable usuario_id; las siguientes usan ese id. Se puede ejecutar todo con 'Run collection'.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string",
+			"description": "Dirección del servidor. Si cambia el puerto, se cambia solo aquí."
+		},
+		{
+			"key": "usuario_id",
+			"value": "",
+			"type": "string",
+			"description": "Id del usuario creado en la petición 3. Se llena solo."
+		}
+	],
+	"item": [
+		{
+			"name": "1. Salud del servidor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Comprueba que el servidor responde 200 (OK).",
+							"pm.test(\"Responde 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Comprueba que el cuerpo dice {\"estado\": \"ok\"}.",
+							"pm.test(\"El estado es ok\", function () {",
+							"    pm.expect(pm.response.json().estado).to.eql(\"ok\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/salud",
+					"host": ["{{base_url}}"],
+					"path": ["salud"]
+				},
+				"description": "Comprueba que el servidor está encendido. No usa la base de datos."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Listar usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Responde 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// La respuesta debe ser una lista (array) con usuarios.",
+							"// Con la base limpia (database.sql) son 3.",
+							"pm.test(\"Devuelve una lista de usuarios\", function () {",
+							"    const usuarios = pm.response.json();",
+							"    pm.expect(usuarios).to.be.an(\"array\");",
+							"    pm.expect(usuarios.length).to.be.above(0);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/usuarios",
+					"host": ["{{base_url}}"],
+					"path": ["usuarios"]
+				},
+				"description": "Devuelve todos los usuarios, ordenados por id."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Crear usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Responde 201 Created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"// Guarda el id del usuario nuevo en la variable usuario_id,",
+							"// para que las peticiones 4, 5, 8 y 9 lo usen.",
+							"const usuario = pm.response.json();",
+							"pm.collectionVariables.set(\"usuario_id\", usuario.id);",
+							"",
+							"pm.test(\"Devuelve el usuario con su id\", function () {",
+							"    pm.expect(usuario.id).to.be.a(\"number\");",
+							"    pm.expect(usuario.nombre).to.eql(\"Carlos Pérez\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Carlos Pérez\",\n    \"correo\": \"carlos.{{$timestamp}}@ejemplo.test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/usuarios",
+					"host": ["{{base_url}}"],
+					"path": ["usuarios"]
+				},
+				"description": "Crea un usuario. {{$timestamp}} pone un número distinto cada vez, así el correo nunca se repite."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Ver el usuario creado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Responde 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// El id devuelto debe ser el mismo que guardamos en la petición 3.",
+							"pm.test(\"Es el usuario que creamos\", function () {",
+							"    const idGuardado = Number(pm.collectionVariables.get(\"usuario_id\"));",
+							"    pm.expect(pm.response.json().id).to.eql(idGuardado);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/usuarios/{{usuario_id}}",
+					"host": ["{{base_url}}"],
+					"path": ["usuarios", "{{usuario_id}}"]
+				},
+				"description": "Devuelve un usuario por su id."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Editar el usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Responde 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"El nombre cambió\", function () {",
+							"    pm.expect(pm.response.json().nombre).to.eql(\"Carlos Pérez Editado\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Carlos Pérez Editado\",\n    \"correo\": \"carlos.editado.{{$timestamp}}@ejemplo.test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/usuarios/{{usuario_id}}",
+					"host": ["{{base_url}}"],
+					"path": ["usuarios", "{{usuario_id}}"]
+				},
+				"description": "Cambia el nombre y el correo del usuario creado."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Crear con correo repetido (error 409)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Este correo ya es de Laura Gómez: la API debe rechazarlo.",
+							"pm.test(\"Responde 409 Conflict\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});",
+							"",
+							"pm.test(\"Explica que el correo ya existe\", function () {",
+							"    pm.expect(pm.response.json().detail).to.eql(\"Ya existe un usuario con ese correo.\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Otra Laura\",\n    \"correo\": \"laura.gomez@ejemplo.test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/usuarios",
+					"host": ["{{base_url}}"],
+					"path": ["usuarios"]
+				},
+				"description": "Intenta crear un usuario con un correo que ya existe. Debe responder 409."
+			},
+			"response": []
+		},
+		{
+			"name": "7. Crear sin nombre (error 422)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Falta el nombre: FastAPI responde 422 sin llegar a la base de datos.",
+							"pm.test(\"Responde 422 Unprocessable Entity\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"correo\": \"sin.nombre@ejemplo.test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/usuarios",
+					"host": ["{{base_url}}"],
+					"path": ["usuarios"]
+				},
+				"description": "Intenta crear un usuario sin nombre. Debe responder 422."
+			},
+			"response": []
+		},
+		{
+			"name": "8. Borrar el usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// 204: se borró y no hay nada que devolver.",
+							"pm.test(\"Responde 204 No Content\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/usuarios/{{usuario_id}}",
+					"host": ["{{base_url}}"],
+					"path": ["usuarios", "{{usuario_id}}"]
+				},
+				"description": "Borra de verdad el usuario creado en la petición 3."
+			},
+			"response": []
+		},
+		{
+			"name": "9. Ver el usuario borrado (error 404)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// El usuario ya no existe.",
+							"pm.test(\"Responde 404 Not Found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Explica que el usuario no existe\", function () {",
+							"    pm.expect(pm.response.json().detail).to.eql(\"El usuario no existe.\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/usuarios/{{usuario_id}}",
+					"host": ["{{base_url}}"],
+					"path": ["usuarios", "{{usuario_id}}"]
+				},
+				"description": "Busca el usuario que acabamos de borrar. Debe responder 404."
+			},
+			"response": []
+		}
+	]
+}

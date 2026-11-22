@@ -16,7 +16,7 @@ Los comandos son para **PowerShell** en Windows, salvo que se diga otra cosa.
 
 1. **Base de datos:** crear la base `mini_crud`, la tabla `usuarios` y un usuario de MySQL para el proyecto.
 2. **Servidor:** el código de FastAPI con los 6 endpoints.
-3. **Postman:** importar la colección y probar los endpoints *(pendiente)*.
+3. **Postman:** importar la colección y probar los endpoints.
 4. **Pruebas automáticas y exposición** *(pendiente)*.
 
 ---
@@ -567,3 +567,123 @@ Si hizo pruebas y quiere volver a los 3 usuarios de ejemplo (y que los id empiec
 Ya tiene un servidor funcionando con los 6 endpoints, conectado a MySQL con el usuario del proyecto.
 
 **Siguiente etapa:** probar los endpoints con Postman.
+
+---
+
+## Etapa 3: Postman
+
+**Conceptos:**
+
+- **Postman:** un programa para enviar peticiones a una API (GET, POST, PUT, DELETE) y ver la respuesta, sin necesidad de una página web.
+- **Colección:** un archivo con un grupo de peticiones ya preparadas. La del proyecto es `mini-crud.postman_collection.json`.
+- **Variable:** un valor con nombre que se escribe entre llaves dobles, por ejemplo `{{base_url}}`. Postman lo cambia por su valor antes de enviar la petición.
+- **Prueba (test):** un pequeño código en JavaScript que Postman ejecuta al recibir la respuesta y que dice si salió como se esperaba (verde) o no (rojo).
+
+### 3.1 Instalar Postman
+
+**Qué hacemos:** descargar e instalar la aplicación de escritorio.
+
+1. Entre a [postman.com/downloads](https://www.postman.com/downloads/) y descargue la versión para **Windows**.
+2. Ejecute el instalador.
+3. Al abrir, puede crear una cuenta gratuita o entrar con Google.
+
+**Salió bien si:** se abre la ventana principal de Postman.
+
+### 3.2 La colección del proyecto
+
+**Qué hacemos:** la colección ya está en la carpeta del proyecto, en el archivo `mini-crud.postman_collection.json`. Tiene:
+
+- **2 variables:**
+  - `base_url` = `http://localhost:8000` (la dirección del servidor; si cambia el puerto, se cambia solo aquí).
+  - `usuario_id`: empieza vacía y se llena sola al crear un usuario.
+- **9 peticiones**, en este orden:
+
+| # | Petición | Qué demuestra | Esperado |
+|---|---|---|---|
+| 1 | GET `/salud` | El servidor está encendido | 200 |
+| 2 | GET `/usuarios` | Listar (READ) | 200 |
+| 3 | POST `/usuarios` | Crear (CREATE); guarda el `id` en `usuario_id` | 201 |
+| 4 | GET `/usuarios/{{usuario_id}}` | Ver uno (READ) | 200 |
+| 5 | PUT `/usuarios/{{usuario_id}}` | Editar (UPDATE) | 200 |
+| 6 | POST `/usuarios` con el correo de Laura | Correo repetido | 409 |
+| 7 | POST `/usuarios` sin nombre | Datos incompletos | 422 |
+| 8 | DELETE `/usuarios/{{usuario_id}}` | Borrar (DELETE) | 204 |
+| 9 | GET `/usuarios/{{usuario_id}}` | Ya no existe | 404 |
+
+**Cómo pasa el id de una petición a otra:** la prueba de la petición 3 tiene esta línea, que toma el `id` de la respuesta y lo guarda en la variable:
+
+```javascript
+pm.collectionVariables.set("usuario_id", usuario.id);
+```
+
+**Por qué el correo dice `{{$timestamp}}`:** es una variable especial de Postman que pone un número distinto cada vez (la hora en segundos). Así el correo nunca se repite y la colección se puede ejecutar muchas veces sin error 409.
+
+Ejemplo de una prueba (petición 1):
+
+```javascript
+pm.test("Responde 200 OK", function () {
+    pm.response.to.have.status(200);
+});
+```
+
+### 3.3 Importar la colección
+
+**Qué hacemos:** cargar el archivo en Postman.
+
+1. En Postman, pulse **Import** (arriba a la izquierda).
+2. Arrastre el archivo `C:\AppServ\www\mini-crud\mini-crud.postman_collection.json` (o pulse **files** y búsquelo).
+3. Pulse **Import**.
+
+**Salió bien si:** en el panel izquierdo, en **Collections**, aparece **Mini CRUD de usuarios** con las 9 peticiones.
+
+### 3.4 Encender todo y dejar la base limpia
+
+**Qué hacemos:** antes de probar deben estar encendidos MySQL (paso 1.1) y el servidor (paso 2.5). Y conviene dejar la base con los 3 usuarios de ejemplo.
+
+Encender el servidor (en su propia ventana, desde `mini-crud`):
+
+```
+.\.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000
+```
+
+Dejar la base limpia (en otra ventana, desde `mini-crud`):
+
+```
+cmd /c "C:\AppServ\MySQL\bin\mysql.exe -u root -t --default-character-set=utf8mb4 < database.sql"
+```
+
+**Salió bien si:** aparecen los 3 usuarios de ejemplo y el servidor dice `Uvicorn running on http://127.0.0.1:8000`.
+
+### 3.5 Enviar las peticiones una por una
+
+**Qué hacemos:** así se hace en la exposición, para explicar cada endpoint.
+
+1. Abra la petición **1. Salud del servidor** y pulse **Send**.
+2. Abajo verá la respuesta: el **código** (por ejemplo `200 OK`), el **cuerpo** (Body) y la pestaña **Test Results** con las pruebas en verde.
+3. Repita con las peticiones 2 a 9, **en orden** (la 4, 5, 8 y 9 necesitan el id que guarda la 3).
+4. En las peticiones POST y PUT, abra la pestaña **Body** para mostrar los datos que se envían.
+
+**Salió bien si:** cada petición responde el código de la tabla del paso 3.2 y **Test Results** está en verde.
+
+> Si la petición 4 responde 404 o la URL muestra `/usuarios/` sin número, es porque no se ha enviado la 3 todavía.
+
+### 3.6 Ejecutar toda la colección de una vez (Run collection)
+
+**Qué hacemos:** Postman envía las 9 peticiones seguidas y muestra el resultado de todas las pruebas.
+
+1. En el panel izquierdo, pase el ratón sobre **Mini CRUD de usuarios** y pulse los **tres puntos (...)**.
+2. Elija **Run collection**.
+3. Deje el orden como está y pulse **Run Mini CRUD de usuarios**.
+
+**Salió bien si:** las 9 peticiones aparecen y las **16 pruebas** salen en verde (**Passed**), ninguna en rojo (**Failed**).
+
+> Al final de la colección el usuario creado se borra, así que la base queda otra vez con los 3 usuarios de ejemplo (aunque el próximo id ya no será 4; para eso, repetir el paso 3.4).
+
+### Fin de la etapa 3
+
+Ya tiene:
+
+- La colección `mini-crud.postman_collection.json` con 9 peticiones y sus pruebas.
+- La demostración de los 6 endpoints, incluidos los errores 404, 409 y 422.
+
+**Siguiente etapa:** pruebas automáticas y preparación de la exposición.

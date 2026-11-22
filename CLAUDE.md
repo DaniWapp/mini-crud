@@ -57,26 +57,12 @@ mini-crud/
 ## Estado actual (2026-11-22)
 - Etapa 1 (base de datos): TERMINADA y probada.
 - Etapa 2 (servidor): TERMINADA y probada con el servidor encendido (los 6 endpoints, incluidos 404, 409 y 422).
-- TUTORIAL.md: etapas 1 y 2 escritas (con el código completo de los archivos).
+- Etapa 3 (Postman): TERMINADA. `mini-crud.postman_collection.json` (v2.1) con variables `base_url` y `usuario_id` y 9 peticiones (salud, listar, crear → guarda id, ver, editar, 409, 422, borrar, 404). Los correos de crear/editar usan `{{$timestamp}}` para no repetirse. Probada con Newman (CLI de Postman): 16/16 pruebas en verde, dos ejecuciones seguidas.
+- TUTORIAL.md: etapas 1, 2 y 3 escritas.
 - La base `mini_crud` está limpia (3 usuarios de ejemplo).
-- Postman: NO estaba instalado en este equipo (descarga: https://www.postman.com/downloads/). Confirmar con el usuario si ya lo instaló.
+- Postman de escritorio: NO estaba instalado en este equipo (descarga: https://www.postman.com/downloads/). Confirmar con el usuario si ya lo instaló e importó la colección.
 
 ## Pendiente
-### Etapa 3: colección de Postman (siguiente)
-Crear `mini-crud.postman_collection.json` (formato Postman v2.1) con:
-- Variable de colección `base_url` = `http://localhost:8000` y variable `usuario_id`.
-- 9 peticiones en este orden, cada una con una prueba (`pm.test`) del código esperado:
-  1. GET `/salud` → 200
-  2. GET `/usuarios` → 200 (3 usuarios)
-  3. POST `/usuarios` → 201; guarda el `id` de la respuesta en `usuario_id` (`pm.collectionVariables.set`)
-  4. GET `/usuarios/{{usuario_id}}` → 200
-  5. PUT `/usuarios/{{usuario_id}}` → 200
-  6. POST `/usuarios` con un correo existente → 409
-  7. POST `/usuarios` sin nombre → 422
-  8. DELETE `/usuarios/{{usuario_id}}` → 204
-  9. GET `/usuarios/{{usuario_id}}` → 404
-- Debe poder ejecutarse completa con "Run collection" y quedar todo en verde.
-- Agregar al TUTORIAL.md la etapa 3: instalar Postman, importar la colección, enviar cada petición y usar Run collection.
 
 ### Etapa 4: pruebas y exposición
 - `test_usuarios.py` con pytest (opcional para la exposición; agregar pytest y httpx a requirements.txt con versión fija). Si toca la base, usar una base aparte o dejarla limpia.
