@@ -13,3 +13,11 @@ pymysql==1.2.4
 
 # python-dotenv: lee el archivo .env con los datos de conexión.
 python-dotenv==1.2.4
+
+# ---- Solo para las pruebas automáticas (test_usuarios.py) ----
+
+# pytest: ejecuta las pruebas automáticas.
+pytest==9.2.0
+
+# httpx2: lo usa el TestClient de FastAPI para enviar peticiones a la API.
+httpx2==2.16.2
