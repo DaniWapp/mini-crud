@@ -630,7 +630,9 @@ pm.test("Responde 200 OK", function () {
 
 **Qué hacemos:** cargar el archivo en Postman.
 
-1. En Postman, pulse **Import** (arriba a la izquierda).
+1. En Postman, abra la ventana de importar de una de estas dos formas:
+   - Con el teclado: **Ctrl + O**.
+   - Con el ícono del panel izquierdo, arriba, a la derecha del **+** (una flecha que entra en un cuadro). En las versiones nuevas de Postman el botón ya no dice "Import".
 2. Arrastre el archivo `C:\AppServ\www\mini-crud\mini-crud.postman_collection.json` (o pulse **files** y búsquelo).
 3. Pulse **Import**.
 
