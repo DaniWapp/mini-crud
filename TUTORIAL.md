@@ -674,10 +674,13 @@ cmd /c "C:\AppServ\MySQL\bin\mysql.exe -u root -t --default-character-set=utf8mb
 **Qué hacemos:** Postman envía las 9 peticiones seguidas y muestra el resultado de todas las pruebas.
 
 1. En el panel izquierdo, pase el ratón sobre **Mini CRUD de usuarios** y pulse los **tres puntos (...)**.
-2. Elija **Run collection**.
-3. Deje el orden como está y pulse **Run Mini CRUD de usuarios**.
+2. Elija **Run** (en algunas versiones dice **Run collection**).
+3. Deje las 9 peticiones marcadas y en orden, con **Functional** y **Local** seleccionados.
+4. Pulse el botón naranja **Start run** (en versiones antiguas: **Run Mini CRUD de usuarios**).
 
-**Salió bien si:** las 9 peticiones aparecen y las **16 pruebas** salen en verde (**Passed**), ninguna en rojo (**Failed**).
+**Salió bien si:** arriba aparece **Passed 16** y **Failed 0**.
+
+> La opción **Stop run if an error occurs** puede quedar marcada: las respuestas 409, 422 y 404 son esperadas, no errores de la ejecución.
 
 > Al final de la colección el usuario creado se borra, así que la base queda otra vez con los 3 usuarios de ejemplo (aunque el próximo id ya no será 4; para eso, repetir el paso 3.4).
 

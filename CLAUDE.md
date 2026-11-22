@@ -60,7 +60,7 @@ mini-crud/
 - Etapa 3 (Postman): TERMINADA. `mini-crud.postman_collection.json` (v2.1) con variables `base_url` y `usuario_id` y 9 peticiones (salud, listar, crear → guarda id, ver, editar, 409, 422, borrar, 404). Los correos de crear/editar usan `{{$timestamp}}` para no repetirse. Probada con Newman (CLI de Postman): 16/16 pruebas en verde, dos ejecuciones seguidas.
 - TUTORIAL.md: etapas 1, 2 y 3 escritas.
 - La base `mini_crud` está limpia (3 usuarios de ejemplo).
-- Postman de escritorio: NO estaba instalado en este equipo (descarga: https://www.postman.com/downloads/). Confirmar con el usuario si ya lo instaló e importó la colección.
+- Postman de escritorio 12.37: instalado por el usuario, colección importada y probada por él: petición por petición y con Run collection (Passed 16, Failed 0). En esta versión se importa con Ctrl + O y el botón del runner es "Start run".
 
 ## Pendiente
 
