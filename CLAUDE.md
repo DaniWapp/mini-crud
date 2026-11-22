@@ -61,6 +61,7 @@ mini-crud/
 - Nota: el patrón del correo rechaza espacios en los extremos (422), así que el `.strip()` del correo en main.py nunca se usa en la práctica. No se cambió.
 - Etapa 4.2 (README.md): TERMINADA.
 - Etapa 4.3 (guion): TERMINADA. `GUION.md`: preparación, guion de ~5 min por petición, momentos de phpMyAdmin (http://localhost/phpMyAdmin/, Apache de AppServ respondía), plan B y preguntas probables.
+- `DIAGRAMAS.md`: 7 diagramas Mermaid (piezas, tabla, CRUD, cómo decide el código, secuencia de POST, colección de Postman, archivos y GitHub), comprobados con mermaid-cli. Enlazado desde README.md.
 - TUTORIAL.md: todas las etapas escritas (1 a 4.3). PROYECTO COMPLETO; queda solo que el usuario ensaye.
 - La base `mini_crud` está limpia (3 usuarios de ejemplo).
 - Postman de escritorio 12.37: instalado por el usuario, colección importada y probada por él: petición por petición y con Run collection (Passed 16, Failed 0). En esta versión se importa con Ctrl + O y el botón del runner es "Start run".

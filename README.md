@@ -18,6 +18,10 @@ Proyecto de demostración para una exposición del **SENA, programa ADSO**.
 | `mini-crud.postman_collection.json` | Colección de Postman con 9 peticiones y sus pruebas |
 | `test_usuarios.py` | Pruebas automáticas con pytest |
 | `TUTORIAL.md` | Guía paso a paso para hacer todo desde cero |
+| `GUION.md` | Guion para exponer el proyecto en unos 5 minutos |
+| `DIAGRAMAS.md` | Diagramas que explican cómo funciona el proyecto |
+
+> Para entender el proyecto de un vistazo, vea los diagramas: [DIAGRAMAS.md](DIAGRAMAS.md).
 
 ## Endpoints
 
