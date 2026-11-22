@@ -701,7 +701,7 @@ Partes de esta etapa:
 
 1. Pruebas automáticas con pytest.
 2. `README.md` del proyecto.
-3. Guion de la exposición *(pendiente)*.
+3. Guion de la exposición.
 
 ### 4.1 Pruebas automáticas con pytest
 
@@ -889,3 +889,27 @@ Cree `README.md` en la carpeta `mini-crud`. Puede copiar el del proyecto: [READM
 8. Tecnologías.
 
 **Salió bien si:** al subirlo a GitHub, la página del repositorio muestra el README debajo de la lista de archivos.
+
+### 4.3 Preparar la exposición
+
+**Qué hacemos:** el archivo [GUION.md](GUION.md) tiene todo lo necesario para exponer en unos 5 minutos:
+
+1. **Antes de la exposición:** encender MySQL, dejar la base limpia, encender el servidor y dejar abiertos Postman, phpMyAdmin y VS Code.
+2. **Guion:** qué decir en la presentación, en el código, en cada petición de Postman y en el cierre.
+3. **phpMyAdmin:** en qué momentos mostrar que los datos cambian de verdad en la base (después de crear, editar y borrar).
+4. **Plan B:** qué hacer si algo falla.
+5. **Preguntas probables** del profesor, con respuestas sencillas.
+
+phpMyAdmin está en [http://localhost/phpMyAdmin/](http://localhost/phpMyAdmin/) (necesita Apache encendido). Puede entrar con el usuario `mini_crud` y su contraseña: así solo verá la base del proyecto.
+
+**Salió bien si:** puede hacer un ensayo completo siguiendo el guion, de principio a fin, en unos 5 minutos.
+
+### Fin de la etapa 4
+
+Ya tiene:
+
+- Pruebas automáticas con pytest (`test_usuarios.py`).
+- El `README.md` del proyecto.
+- El guion de la exposición (`GUION.md`).
+
+**El proyecto está completo.** 🎉

@@ -61,7 +61,8 @@ mini-crud/
 - Etapa 4.1 (pytest): TERMINADA. `test_usuarios.py` con 9 pruebas (TestClient, sin servidor), 9 passed. Usa la base real; cada prueba borra lo que crea (solo avanza el contador de id). requirements.txt: pytest==9.2.0 y httpx2==2.16.2 (Starlette marca httpx como obsoleto; probado en un venv limpio). El .venv local tiene además httpx 0.28.1 instalado (no estorba).
 - Nota: el patrón del correo rechaza espacios en los extremos (422), así que el `.strip()` del correo en main.py nunca se usa en la práctica. No se cambió.
 - Etapa 4.2 (README.md): TERMINADA.
-- TUTORIAL.md: etapas 1, 2, 3, 4.1 y 4.2 escritas. Falta 4.3 (guion de la exposición).
+- Etapa 4.3 (guion): TERMINADA. `GUION.md`: preparación, guion de ~5 min por petición, momentos de phpMyAdmin (http://localhost/phpMyAdmin/, Apache de AppServ respondía), plan B y preguntas probables.
+- TUTORIAL.md: todas las etapas escritas (1 a 4.3). PROYECTO COMPLETO; queda solo que el usuario ensaye.
 - La base `mini_crud` está limpia (3 usuarios de ejemplo).
 - Postman de escritorio 12.37: instalado por el usuario, colección importada y probada por él: petición por petición y con Run collection (Passed 16, Failed 0). En esta versión se importa con Ctrl + O y el botón del runner es "Start run".
 
