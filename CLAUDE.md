@@ -3,7 +3,6 @@
 ## Qué es y para qué
 Mini proyecto de DEMOSTRACIÓN para una exposición del SENA (programa ADSO). La tarea del profesor: **montar un servidor y demostrar desde Postman que los endpoints funcionan**.
 El usuario es principiante: todo debe ser sencillo, explicable línea por línea y con comentarios para principiantes.
-Es una versión mínima inspirada en el proyecto grande `C:\AppServ\www\facturApp` (repositorio https://github.com/DaniWapp/factuApp). **No se modifica facturApp desde aquí.**
 
 - Repositorio: https://github.com/DaniWapp/mini-crud (rama `main`).
 - Carpeta: `C:\AppServ\www\mini-crud`.

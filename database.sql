@@ -1,6 +1,6 @@
 -- =====================================================================
 -- Archivo:  mini-crud/database.sql
--- Proyecto: Mini CRUD de usuarios (demostración basada en FacturApp)
+-- Proyecto: Mini CRUD de usuarios
 --
 -- Qué hace:
 --   1. Crea la base de datos "mini_crud" si no existe.
