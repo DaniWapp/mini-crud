@@ -894,11 +894,12 @@ Cree `README.md` en la carpeta `mini-crud`. Puede copiar el del proyecto: [READM
 
 **Qué hacemos:** el archivo [GUION.md](GUION.md) tiene todo lo necesario para exponer en unos 5 minutos:
 
-1. **Antes de la exposición:** encender MySQL, dejar la base limpia, encender el servidor y dejar abiertos Postman, phpMyAdmin y VS Code.
-2. **Guion:** qué decir en la presentación, en el código, en cada petición de Postman y en el cierre.
-3. **phpMyAdmin:** en qué momentos mostrar que los datos cambian de verdad en la base (después de crear, editar y borrar).
-4. **Plan B:** qué hacer si algo falla.
-5. **Preguntas probables** del profesor, con respuestas sencillas.
+1. **Ensayo:** hacer un ensayo completo, medir el tiempo y, al terminar, dejar la base limpia con `database.sql` (para que el usuario nuevo vuelva a tener el id 4).
+2. **Antes de la exposición:** encender MySQL, dejar la base limpia, encender el servidor y dejar abiertos Postman, phpMyAdmin y VS Code.
+3. **Guion:** qué decir en la presentación, en el código, en cada petición de Postman y en el cierre.
+4. **phpMyAdmin:** en qué momentos mostrar que los datos cambian de verdad en la base (después de crear, editar y borrar).
+5. **Plan B:** qué hacer si algo falla.
+6. **Preguntas probables** del profesor, con respuestas sencillas.
 
 phpMyAdmin está en [http://localhost/phpMyAdmin/](http://localhost/phpMyAdmin/) (necesita Apache encendido). Puede entrar con el usuario `mini_crud` y su contraseña: así solo verá la base del proyecto.
 

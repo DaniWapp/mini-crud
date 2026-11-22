@@ -6,6 +6,22 @@ Las frases entre comillas son una guía de qué decir: no hay que memorizarlas p
 
 ---
 
+## Ensayo (uno o dos días antes)
+
+1. Haga **un ensayo completo**, de principio a fin, siguiendo este guion (incluida la preparación de abajo).
+2. **Mida el tiempo:** debe durar unos 5 minutos. Si se pasa, acorte la parte del código.
+3. Al terminar el ensayo, **deje la base limpia** otra vez (desde `C:\AppServ\www\mini-crud`):
+
+```
+cmd /c "C:\AppServ\MySQL\bin\mysql.exe -u root -t --default-character-set=utf8mb4 < database.sql"
+```
+
+**Por qué:** cada vez que se crea un usuario, MySQL avanza el contador de id, aunque después se borre. Al ejecutar `database.sql` la base vuelve a tener solo los 3 usuarios de ejemplo y el próximo usuario nuevo vuelve a tener el **id 4**, como en este guion.
+
+> Con XAMPP, cambie la ruta por `C:\xampp\mysql\bin\mysql.exe`.
+
+---
+
 ## Antes de la exposición (10 minutos antes)
 
 Deje todo listo y abierto, para no perder tiempo delante del profesor.

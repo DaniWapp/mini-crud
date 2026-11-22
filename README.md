@@ -97,6 +97,16 @@ Deben salir `9 passed`.
 
 **Dejar la base limpia** (otra vez con los 3 usuarios de ejemplo): repita el paso 1 de la instalación.
 
+## Para exponer o hacer una demostración
+
+Siga [GUION.md](GUION.md). En resumen:
+
+1. **Ensaye una vez** la exposición completa con el guion y mida el tiempo (unos 5 minutos).
+2. **Al terminar el ensayo, deje la base limpia** (paso 1 de la instalación). Cada usuario creado avanza el contador de id aunque después se borre; así el usuario nuevo de la demostración vuelve a tener el id 4.
+3. **El día de la exposición**, siga la lista "Antes de la exposición" del guion: encender MySQL, dejar la base limpia, encender el servidor y abrir Postman y phpMyAdmin.
+
+> No ejecute Run collection ni pytest justo antes de exponer, o el usuario nuevo ya no tendrá el id 4.
+
 ## Tecnologías
 
 - Python 3.12, FastAPI, Uvicorn
