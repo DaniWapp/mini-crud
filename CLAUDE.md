@@ -60,7 +60,8 @@ mini-crud/
 - Etapa 3 (Postman): TERMINADA. `mini-crud.postman_collection.json` (v2.1) con variables `base_url` y `usuario_id` y 9 peticiones (salud, listar, crear → guarda id, ver, editar, 409, 422, borrar, 404). Los correos de crear/editar usan `{{$timestamp}}` para no repetirse. Probada con Newman (CLI de Postman): 16/16 pruebas en verde, dos ejecuciones seguidas.
 - Etapa 4.1 (pytest): TERMINADA. `test_usuarios.py` con 9 pruebas (TestClient, sin servidor), 9 passed. Usa la base real; cada prueba borra lo que crea (solo avanza el contador de id). requirements.txt: pytest==9.2.0 y httpx2==2.16.2 (Starlette marca httpx como obsoleto; probado en un venv limpio). El .venv local tiene además httpx 0.28.1 instalado (no estorba).
 - Nota: el patrón del correo rechaza espacios en los extremos (422), así que el `.strip()` del correo en main.py nunca se usa en la práctica. No se cambió.
-- TUTORIAL.md: etapas 1, 2, 3 y 4.1 escritas.
+- Etapa 4.2 (README.md): TERMINADA.
+- TUTORIAL.md: etapas 1, 2, 3, 4.1 y 4.2 escritas. Falta 4.3 (guion de la exposición).
 - La base `mini_crud` está limpia (3 usuarios de ejemplo).
 - Postman de escritorio 12.37: instalado por el usuario, colección importada y probada por él: petición por petición y con Run collection (Passed 16, Failed 0). En esta versión se importa con Ctrl + O y el botón del runner es "Start run".
 

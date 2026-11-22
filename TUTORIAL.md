@@ -700,7 +700,7 @@ Ya tiene:
 Partes de esta etapa:
 
 1. Pruebas automáticas con pytest.
-2. `README.md` del proyecto *(pendiente)*.
+2. `README.md` del proyecto.
 3. Guion de la exposición *(pendiente)*.
 
 ### 4.1 Pruebas automáticas con pytest
@@ -872,3 +872,20 @@ def test_editar_usuario_que_no_existe_da_404():
 **Salió bien si:** al final dice `9 passed` y cada prueba aparece con `PASSED`.
 
 > Las pruebas borran los usuarios que crean, pero el contador de id avanza. Antes de exponer, deje la base limpia (paso 3.4).
+
+### 4.2 Crear el `README.md`
+
+**Qué hacemos:** el `README.md` es la "portada" del proyecto: GitHub lo muestra al abrir el repositorio. Explica en pocas líneas qué es, qué archivos tiene, cuáles son los endpoints, cómo instalarlo, cómo arrancarlo y cómo probarlo. Este tutorial, en cambio, explica todo paso a paso.
+
+Cree `README.md` en la carpeta `mini-crud`. Puede copiar el del proyecto: [README.md](README.md). Sus secciones son:
+
+1. Qué es el proyecto.
+2. Qué tiene (tabla de archivos).
+3. Endpoints (tabla con métodos, rutas y respuestas).
+4. Requisitos.
+5. Instalación.
+6. Cómo arrancar.
+7. Cómo probar (Postman y pytest).
+8. Tecnologías.
+
+**Salió bien si:** al subirlo a GitHub, la página del repositorio muestra el README debajo de la lista de archivos.
